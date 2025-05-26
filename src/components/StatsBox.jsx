@@ -1,4 +1,4 @@
-const StatusBox = ({ fromColor, toColor, icon, title, value }) => {
+const StatsBox = ({ fromColor, toColor, icon, title, value }) => {
 	return (
 		<div className="group relative bg-slate-900 rounded-xl py-6 px-4 flex flex-col justify-center items-start gap-2 border-[2px] border-slate-800">
 			<div className="flex justify-center items-center gap-3">
@@ -14,4 +14,4 @@ const StatusBox = ({ fromColor, toColor, icon, title, value }) => {
 	);
 };
 
-export default StatusBox;
+export default StatsBox;

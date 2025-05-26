@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Check, Flame } from "lucide-react";
-import { daysOfWeek } from "../../data/data";
+import { daysOfWeek } from "../data/data";
 
 const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 
@@ -64,8 +64,8 @@ const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 					</div>
 				</div>
 
-				<div className={`group bg-gray-700 flex gap-2 rounded-xl px-2 py-1.5 color items-center text-[${getSreakColorForAHabit()}] cursor-pointer`}>
-					<Flame className="group-hover:scale-120 transition-all"/>
+				<div className={"group bg-gray-700 flex gap-2 rounded-xl px-2 py-1.5 color items-center cursor-pointer"}>
+					<Flame className={`group-hover:scale-120 transition-all text-[${getSreakColorForAHabit(0)}]`}/>
 					<p className="text-gray-200 font-poppins font-[400] text-sm group-hover:text-white group-hover:font-[500] transition-all">9</p>
 				</div>
 			</div>
