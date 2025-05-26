@@ -7,3 +7,35 @@
 @theme {
   --font-poppins: "Poppins", "sans-serif";
 }
+
+.shine-effect {
+  position: relative;
+	overflow: hidden;
+}
+
+.shine-effect::before {
+position: absolute;
+	top: -50%;
+	left: -50%;
+	content: "";
+	width: 25%;
+	height: 200%;
+	background:  radial-gradient(ellipse at center, 
+              rgba(255,255,255,0.4) 10%, 
+              rgba(255,255,255,0) 70%);
+	z-index: 1;
+	transform: translatex(0%);
+}
+
+.shine-effect:hover::before  {
+	animation: slide 0.6s;	
+}
+
+@keyframes slide {
+	from: {
+		transform: translatex(0%);
+	}	
+	to: {
+		transform: translatex(600%);
+	}
+}
