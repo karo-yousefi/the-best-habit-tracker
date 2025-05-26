@@ -1,0 +1,17 @@
+const StatusBox = ({ fromColor, toColor, icon, title, value }) => {
+	return (
+		<div className="relative bg-slate-900 rounded-xl py-6 px-4 flex flex-col justify-center items-start gap-2 z-0 border-[2px] border-slate-800">
+			<div className="flex justify-center items-center gap-3">
+				<div className={`bg-gradient-to-bl ${fromColor} ${toColor} text-white p-[5px] rounded-md `}>
+					{icon}
+				</div>
+				<div>
+					<p className="font-poppins font-[600] text-3xl text-white select-none">{value}</p>
+					<p className="font-poppins font-[300] text-sm text-gray-300 select-none">{title}</p>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default StatusBox;
