@@ -51,9 +51,21 @@ const flameColors = [
   "#DC2626", // on fire | day 24-27
   "#EA580C", // blazing | day 28-32
   "#F97316", // full flame | day 33+
-]
+];
+
+
+const howOftenOptions = [
+	"Daily",
+	"Twice A Day",
+	"Every 2 Days",
+	"Every 3 Days",
+	"Weekly",
+	"Twice A Week",
+	"Custom",
+];
 
 export {
 	statsInfo,
 	daysOfWeek,
-}
+	howOftenOptions,
+};
