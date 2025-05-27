@@ -1,10 +1,29 @@
 import { useRef, useState } from "react";
 import CustomDropdown from "./CustomDropdown";
+import { availableIcons } from "../data/data";
 
 const AddHabitModal = ({ addModalOpen, setAddModalOpen }) => {
 	const modalBGRef = useRef(null);
-	const [colorOne, setColorOne] = useState("#ffffff");
-	const [colorTwo, setColorTwo] = useState("#ffffff");
+	const [habitName, setHabitName] = useState("");
+	const [howOften, setHowOften] = useState("Daily");
+	const [colorOne, setColorOne] = useState("#8a26fc");
+	const [colorTwo, setColorTwo] = useState("#fa147f");
+	const [selectedIcon, setSelectedIcon] = useState(null);
+
+
+	const handleCloseModal = () => {
+		setAddModalOpen(false);
+		setHabitName("");
+		setHowOften("Daily");
+		setColorOne("#8a26fc");
+		setColorTwo("#fa147f");
+		setSelectedIcon(null);
+	}
+
+	const handleAddHabit = () => {
+		setAddModalOpen(false);
+		
+	}
 
 
 	return (
@@ -14,7 +33,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen }) => {
 			className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#1d293d85] rounded-2xl flex justify-center items-center transition-all ease-out duration-200
 				${addModalOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
 			onClick={(e) => {
-				e.target === modalBGRef.current ? setAddModalOpen(false) : null;
+				e.target === modalBGRef.current ? handleCloseModal() : null;
 			}}
 		>
 
@@ -26,10 +45,10 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen }) => {
 			>
 				{/* modal header */}
 				<div className="flex flex-col items-start w-full gap-3">
-					<p className="font-poppins text-md md:text-xl font-[500] text-white">
+					<p className="font-poppins text-md md:text-xl font-[500] text-white select-none">
 						Add New Habit
 					</p>
-					<p className="font-poppins text-sm font-[400] text-gray-400">
+					<p className="font-poppins text-sm font-[400] text-gray-400 select-none">
 						Create a new habit to track your progress
 					</p>
 				</div>
@@ -38,29 +57,31 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen }) => {
 
 				{/* name input */}
 				<div className="flex flex-col items-start gap-3 w-full">
-					<label className="font-poppins text-md md:text-lg font-[500] text-white">
+					<label className="font-poppins text-md md:text-lg font-[500] text-white select-none">
 						Name
 					</label>
 					<input
 						type="text"
 						placeholder="e.g., Workout, Code, Going Out"
 						className="text-white font-poppins placeholder:text-gray-400 px-1.5 py-2 w-full outline-none border-[1px] border-gray-500 rounded-md bg-gray-800 active:border-whites focus:border-white transition-all"
+						onChange={(e) => setHabitName(e.target.value)}
+						value={habitName}
 					/>
 				</div>
 
 				{/* how often input */}
 				<div className="flex flex-col gap-3 w-full">
-					<label className="font-poppins text-md md:text-lg font-[500] text-white">
+					<label className="font-poppins text-md md:text-lg font-[500] text-white select-none">
 						How often?
 					</label>
-					<CustomDropdown />
+					<CustomDropdown howOften={howOften} setHowOften={setHowOften} />
 				</div>
 
 				{/* color selection inputs */}
-				<div className="flex items-start gap-10 w-full">
+				<div className="flex justify-start items-center gap-5 w-full">
 					<div className="flex items-center gap-5">
-						<label className="font-poppins text-md md:text-lg font-[500] text-white">
-							Color One
+						<label className="font-poppins text-md md:text-lg font-[500] text-white select-none">
+							From
 						</label>
 						<div className="w-9 h-9 rounded-[50%] overflow-hidden relative">
 							<input type="color" value={colorOne} onChange={(e) => setColorOne(e.target.value)} className="w-20 h-20 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] cursor-pointer" />
@@ -68,19 +89,58 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen }) => {
 					</div>
 
 					<div className="flex items-center gap-5">
-						<label className="font-poppins text-md md:text-lg font-[500] text-white">
-							Color Two
+						<label className="font-poppins text-md md:text-lg font-[500] text-white select-none">
+							To
 						</label>
 						<div className="w-9 h-9 rounded-[50%] overflow-hidden relative">
 							<input type="color" value={colorTwo} onChange={(e) => setColorTwo(e.target.value)} className="w-20 h-20 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] cursor-pointer" />
 						</div>
 					</div>
+
+					<div className="w-16 h-8 rounded-md" style={{backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}></div>
 				</div>
 
 				{/* icons selection */}
+				<div className="flex w-full gap-6">
+					<label className="font-poppins text-md md:text-lg font-[500] text-white select-none">
+						Chose An Icon
+					</label>
+					<div className="grid grid-cols-3 md:grid-cols-7 lg:grid-cols-10 gap-2">
+						{
+							availableIcons.map(icon => (
+								<div
+								key={icon.id}
+								title={icon.label}
+								className={`flex justify-center items-center p-[10px] md:p-4 rounded-md text-white cursor-pointer border-[2px] border-gray-500 transition-all  hover:bg-violet-500 hover:border-violet-400 ${selectedIcon === icon.id ? "scale-105 bg-violet-700 border-violet-500" : "translate-y-0 scale-100 bg-slate-600"}`}
+								onClick={() => setSelectedIcon(icon.id)}
+								>
+									{icon.icon}
+								</div>
+							))
+						}
+					</div>
+				</div>
+				<div className="w-full">
+					<p className={`font-poppins text-white select-none font-[300] transition-all duration-300 ${selectedIcon ? "opacity-100" : "opacity-0"}`}>
+						selected: <span className="text-violet-500 select-none font-[500]">
+							{
+								selectedIcon ?
+									availableIcons[selectedIcon].label :
+									null
+							}
+						</span>
+					</p>
+				</div>
 
 
 				{/* add button */}
+				<div className="w-full flex justify-end">
+					<button
+						className="h-10 w-36 bg-gradient-to-br from-violet-600 to-sky-600 rounded-xl text-white font-poppins cursor-pointer select-none transition-all hover:translate-y-[3px] hover:opacity-85"
+						onClick={handleAddHabit}
+						> Add Habit
+					</button>
+				</div>
 				
 			</div>
 		</div>

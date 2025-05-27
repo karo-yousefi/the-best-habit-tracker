@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { howOftenOptions } from "../data/data";
 
-const CustomDropdown = () => {
+const CustomDropdown = ({ howOften, setHowOften }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [selected, setSelected] = useState("");
 
-	const handleSelect = (value) => {
-    setSelected(value);
+	const handleSelect = (option) => {
     setIsOpen(false);
-    // setFrequency(value);
+		setHowOften(option);
   };
 
 
@@ -19,7 +17,7 @@ const CustomDropdown = () => {
 						onClick={() => setIsOpen(!isOpen)}
 						className="w-full bg-gray-800 border border-gray-700 text-white rounded-md px-3 py-2 text-left focus:border-white active:border-white appearance-none cursor-pointer"
 					>
-						{selected || "Select an option"}
+						{howOften || "Select an option"}
 					</button>
 
 					{isOpen && (
@@ -27,8 +25,8 @@ const CustomDropdown = () => {
 							{howOftenOptions.map((option, index) => (
 								<li
 									key={index}
-									onClick={() => handleSelect(option)}
 									className="px-3 py-2 text-white hover:bg-slate-700 cursor-pointer"
+									onClick={() => handleSelect(option)}
 								>
 									{option}
 								</li>
@@ -61,7 +59,7 @@ export default CustomDropdown;
 
 
 
-// custom input:
+// for custom how often input, disabled for now
 {/* 
 					{frequency === "custom" && (
 						<Input
@@ -72,4 +70,5 @@ export default CustomDropdown;
 							className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-400 focus:border-purple-500 mt-2"
 							required
 						/>
-					)} */}
+					)} 
+*/}

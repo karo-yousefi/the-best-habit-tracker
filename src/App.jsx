@@ -11,7 +11,6 @@ const App = () => {
 	const [addModalOpen, setAddModalOpen] = useState(false);
 
 
-
 	return (
 		<HabitContext.Provider value={habits}>
 			<div className="relative min-h-screen bg-gray-950 p-10">

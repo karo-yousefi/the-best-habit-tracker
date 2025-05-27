@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, Flame } from "lucide-react";
-import { daysOfWeek } from "../data/data";
+import { daysOfWeek, flameColors } from "../data/data";
+
 
 const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 
@@ -8,7 +9,7 @@ const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 	const [firstDayOfWeek, setFirstDayOfWeek] = useState("sat"); // Sat Sun Mon
 
 	const getSreakColorForAHabit = (id) => {
-		return "#3B82F6";
+		return flameColors[2];  // 0 - 9
 	};
 
 	const handleHabitComplete = (id) => {
@@ -16,7 +17,7 @@ const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 	};
 
 	const getPercentage = (id) => {
-		return 30;
+		return `${"30"}%`;
 	}
 
 	const changeFirstDayOfWeek = () => {
@@ -48,7 +49,7 @@ const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 				</div>
 				<div className="relative w-full h-2">
 					<div className="absolute w-full bg-slate-700 rounded-xl h-full"></div>
-					<div className={`absolute w-[${getPercentage(id)}%] h-full bg-gradient-to-l ${toColor} ${fromColor} rounded-xl transition-all`}></div>
+					<div className={`absolute h-full bg-gradient-to-l ${toColor} ${fromColor} rounded-xl transition-all`} style={{width: getPercentage(0)}}></div>
 				</div>
 			</div>
 
@@ -65,7 +66,7 @@ const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 				</div>
 
 				<div className={"group bg-gray-700 flex gap-2 rounded-xl px-2 py-1.5 color items-center cursor-pointer"}>
-					<Flame className={`group-hover:scale-120 transition-all text-[${getSreakColorForAHabit(0)}]`}/>
+					<Flame className="group-hover:scale-120 transition-all" style={{color: getSreakColorForAHabit(0)}}/>
 					<p className="text-gray-200 font-poppins font-[400] text-sm group-hover:text-white group-hover:font-[500] transition-all">9</p>
 				</div>
 			</div>
