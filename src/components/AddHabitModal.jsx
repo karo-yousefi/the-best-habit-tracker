@@ -1,14 +1,19 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CustomDropdown from "./CustomDropdown";
-import { availableIcons } from "../data/data";
+import { availableIcons, howOftenOptions } from "../data/data";
+import { useContext } from "react";
+import HabitContext from "../context/habitContext";
 
-const AddHabitModal = ({ addModalOpen, setAddModalOpen }) => {
+const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, loadFromLocalStorage, habitList, setHabitList }) => {
 	const modalBGRef = useRef(null);
+
 	const [habitName, setHabitName] = useState("");
 	const [howOften, setHowOften] = useState("Daily");
 	const [colorOne, setColorOne] = useState("#8a26fc");
 	const [colorTwo, setColorTwo] = useState("#fa147f");
 	const [selectedIcon, setSelectedIcon] = useState(null);
+	const [newHabitId, setNewHabitId] = useState(0);
+
 
 
 	const handleCloseModal = () => {
@@ -22,8 +27,36 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen }) => {
 
 	const handleAddHabit = () => {
 		setAddModalOpen(false);
-		
+
+		// undefined checking!!
+		const newHabitData = {
+			id: newHabitId,
+			name: habitName,
+			howOften: howOften,
+			colorOne: colorOne,
+			colorTwo: colorTwo,
+			icon: selectedIcon,
+			streak: 0,
+		}
+
+		let newHabitList = [];
+
+		if (habitList) {
+			newHabitList = [...habitList];
+		}
+		newHabitList.push(newHabitData);
+		setHabitList(newHabitList);
+
+		saveToLocalStorage("habits", newHabitList);
+
 	}
+
+	useEffect(() => {
+
+
+	}, [])
+
+
 
 
 	return (
@@ -121,10 +154,10 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen }) => {
 					</div>
 				</div>
 				<div className="w-full">
-					<p className={`font-poppins text-white select-none font-[300] transition-all duration-300 ${selectedIcon ? "opacity-100" : "opacity-0"}`}>
+					<p className={`font-poppins text-white select-none font-[300] transition-all duration-300 ${selectedIcon !== null && selectedIcon >=0  ? "opacity-100" : "opacity-0"}`}>
 						selected: <span className="text-violet-500 select-none font-[500]">
 							{
-								selectedIcon ?
+								selectedIcon !== null && selectedIcon >= 0 ?
 									availableIcons[selectedIcon].label :
 									null
 							}

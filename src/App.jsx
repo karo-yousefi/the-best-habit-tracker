@@ -9,6 +9,20 @@ import AddHabitModal from "./components/AddHabitModal";
 const App = () => {
 	const [habits, setHabits] = useState([]);
 	const [addModalOpen, setAddModalOpen] = useState(false);
+	const [habitList, setHabitList] = useState([]);
+
+
+	const saveToLocalStorage = (key, value) => {
+		localStorage.setItem(key, value ? JSON.stringify(value) : "")
+	}
+
+	const loadFromLocalStorage = (key) => {
+		if (localStorage.getItem(key)) {
+			const data = JSON.parse(localStorage.getItem(key));
+			return data;
+		}
+	}
+
 
 
 	return (
@@ -22,11 +36,11 @@ const App = () => {
 					<StatsSection />
 
 					{/* habits */}
-					<HabitsSection />
+					<HabitsSection habitList={habitList} setHabitList={setHabitList} saveToLocalStorage={saveToLocalStorage} loadFromLocalStorage={loadFromLocalStorage} />
 				</div>
 
 				{/* add new habit modal */}
-				<AddHabitModal addModalOpen={addModalOpen} setAddModalOpen={setAddModalOpen} />
+				<AddHabitModal addModalOpen={addModalOpen} setAddModalOpen={setAddModalOpen} saveToLocalStorage={saveToLocalStorage} loadFromLocalStorage={loadFromLocalStorage} habitList={habitList} setHabitList={setHabitList} /> 
 				
 			</div>
 		</HabitContext.Provider>

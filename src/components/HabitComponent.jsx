@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Flame } from "lucide-react";
 import { daysOfWeek, flameColors } from "../data/data";
+import { availableIcons } from "../data/data";
 
 
-const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
+
+const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak}) => {
 
 	const [habitsCompletedToday, setHabitsCompletedToday] = useState([]);
 	const [firstDayOfWeek, setFirstDayOfWeek] = useState("sat"); // Sat Sun Mon
@@ -17,7 +19,7 @@ const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 	};
 
 	const getPercentage = (id) => {
-		return `${"30"}%`;
+		return "40%";
 	}
 
 	const changeFirstDayOfWeek = () => {
@@ -25,12 +27,13 @@ const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 	}
 
 
+
 	return (
 		<div className="bg-slate-900 border-[2px] py-6 px-6 border-slate-800 rounded-xl hover:border-slate-700 transition-all flex flex-col justify-start gap-8">
 			<div className="flex justify-between items-center">
 				<div className="flex justify-center items-center gap-3">
-					<div className={`bg-gradient-to-bl ${fromColor} ${toColor} text-white p-[5px] rounded-md`}>
-						{icon}
+					<div className="bg-gradient-to-bl ${colorOne} ${colorTwo} text-white p-[5px] rounded-md" style={{backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}>
+						{availableIcons[icon].icon}
 					</div>
 					<div>
 						<p className="font-poppins font-[500] text-xl text-white select-none">{title}</p>
@@ -38,7 +41,7 @@ const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 				</div>
 
 				<div>
-					<div className={`bg-gradient-to-bl ${fromColor} ${toColor} text-white p-[5px] rounded-md cursor-pointer hover:opacity-75 transition-all`}><Check /></div>
+					<div className="text-white p-[5px] rounded-md cursor-pointer hover:opacity-75 transition-all" style={{backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}><Check /></div>
 				</div>
 			</div>
 			
@@ -49,7 +52,7 @@ const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 				</div>
 				<div className="relative w-full h-2">
 					<div className="absolute w-full bg-slate-700 rounded-xl h-full"></div>
-					<div className={`absolute h-full bg-gradient-to-l ${toColor} ${fromColor} rounded-xl transition-all`} style={{width: getPercentage(0)}}></div>
+					<div className="absolute h-full rounded-xl transition-all" style={{width: getPercentage(0), backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}></div>
 				</div>
 			</div>
 
@@ -59,7 +62,7 @@ const HabitComponent = ({ id, title, streak, icon, fromColor, toColor }) => {
 					<div className="flex gap-1">
 						{
 							daysOfWeek[firstDayOfWeek].map(day => (
-								<div key={day} className={`bg-gradient-to-bl ${fromColor} ${toColor} rounded-[8px] w-8 h-8 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none`}>{day}</div>
+								<div key={day} className="rounded-[8px] w-8 h-8 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none" style={{backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}>{day}</div>
 							))
 						}
 					</div>
