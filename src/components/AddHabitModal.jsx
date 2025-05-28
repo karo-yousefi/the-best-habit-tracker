@@ -1,30 +1,35 @@
-import { useEffect, useRef, useState } from "react";
-import CustomDropdown from "./CustomDropdown";
+import { useEffect, useRef, useState, useContext } from "react";
 import { availableIcons } from "../data/data";
-import { useContext } from "react";
 import { HabitContext } from "../context/HabitContext.jsx";
+import { MiscContext } from "../context/MiscContext.jsx";
+import { daysOfWeek } from "../data/data.jsx";
 
 
 const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage }) => {
 	const { habitList, setHabitList } = useContext(HabitContext);
+	const { miscInfo , setMiscInfo } = useContext(MiscContext);
+
+
 	const modalBGRef = useRef(null);
 
 	const [habitName, setHabitName] = useState("");
-	const [howOften, setHowOften] = useState("Daily");
+	const [newHabitActiveDays, setNewHabitActiveDays] = useState([...daysOfWeek[miscInfo.firstDayOfWeek]]);
 	const [colorOne, setColorOne] = useState("#8a26fc");
 	const [colorTwo, setColorTwo] = useState("#fa147f");
 	const [selectedIcon, setSelectedIcon] = useState(null);
 	const [newHabitId, setNewHabitId] = useState(0);
 
 
-
-	const handleCloseModal = () => {
-		setAddModalOpen(false);
+	const resetInputs = () => {
 		setHabitName("");
-		setHowOften("Daily");
 		setColorOne("#8a26fc");
 		setColorTwo("#fa147f");
 		setSelectedIcon(null);
+	}
+
+	const handleCloseModal = () => {
+		setAddModalOpen(false);
+		resetInputs();
 	}
 
 	const handleAddHabit = () => {
@@ -34,7 +39,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage }) =>
 		const newHabitData = {
 			id: newHabitId,
 			name: habitName,
-			howOften: howOften,
+			acitveDays: newHabitActiveDays,
 			colorOne: colorOne,
 			colorTwo: colorTwo,
 			icon: selectedIcon,
@@ -49,9 +54,25 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage }) =>
 
 		setHabitList(newHabitList);
 		saveToLocalStorage("habits", newHabitList);
+		
+		resetInputs();
 
 		setNewHabitId(newHabitId + 1);
 
+	}
+
+	const handleDayClick = (day) => {
+		const tempNewHabitActiveDays = [...newHabitActiveDays];
+
+		if (tempNewHabitActiveDays.includes(day)) {
+			const index = tempNewHabitActiveDays.indexOf(day);
+			tempNewHabitActiveDays.splice(index, 1);
+		}
+		else {
+			const index = daysOfWeek[miscInfo.firstDayOfWeek].indexOf(day);
+			tempNewHabitActiveDays.splice(index, 0, day);
+		}
+		setNewHabitActiveDays(tempNewHabitActiveDays);
 	}
 
 
@@ -104,7 +125,20 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage }) =>
 					<label className="font-poppins text-md md:text-lg font-[500] text-white select-none">
 						How often?
 					</label>
-					<CustomDropdown howOften={howOften} setHowOften={setHowOften} />
+					<div className="flex gap-2">
+						{
+							daysOfWeek[miscInfo.firstDayOfWeek].map(day => (
+								<div
+									key={day}
+									className="rounded-[8px] w-9 h-9 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none cursor-pointer capitalize transition-all"
+									style={newHabitActiveDays.includes(day) ? {backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`} : null} // Needs animation
+									onClick={() => handleDayClick(day)}
+								>
+									{day}
+								</div>
+							))
+						}
+					</div>
 				</div>
 
 				{/* color selection inputs */}

@@ -9,10 +9,14 @@ import {
 } from "lucide-react";
 
 
-const daysOfWeek = {
-	"sat": ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"],
-	"sun": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-	"mon": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+const daysOfWeek = { // Not a good solution, works for now tho
+	"sun": ["sun", "mon", "tue", "wed", "thu", "fri", "sat"],
+	"mon": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
+	"tue": ["tue", "wed", "thu", "fri", "sat", "sun", "mon"],
+	"wed": ["wed", "thu", "fri", "sat", "sun", "mon", "tue"],
+	"thu": ["thu", "fri", "sat", "sun", "mon", "tue", "wed"],
+	"fri": ["fri", "sat", "sun", "mon", "tue", "wed", "thu"],
+	"sat": ["sat", "sun", "mon", "tue", "wed", "thu", "fri"],
 };
 
 
@@ -29,16 +33,6 @@ const flameColors = [
   "#F97316", // full flame | day 33+
 ];
 
-
-const howOftenOptions = [  // Custom has been removed for now
-	"Daily",
-	"Twice A Day",
-	"Every 2 Days",
-	"Every 3 Days",
-	"Weekly",
-	"Twice A Week",
-	// "Custom",
-];
 
 const availableIcons = [
 	{ id: 0, icon: <Code size={20} />, label: "Code" },
@@ -63,11 +57,16 @@ const availableIcons = [
   { id: 19, icon: <ShoppingCart />, label: "Groceries" },
   { id: 20, icon: <Target />, label: "Goals" },
   { id: 21, icon: <Smile />, label: "Gratitude" }
-]
+];
+
+const defaultSettings = {
+  theme: "dark",
+  firstDayOfWeek: "sun",
+}
 
 export {
 	daysOfWeek,
 	flameColors,
-	howOftenOptions,
 	availableIcons,
+  defaultSettings,
 };

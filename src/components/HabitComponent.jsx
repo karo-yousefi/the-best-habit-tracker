@@ -1,21 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Check, Flame, Trash2 } from "lucide-react";
 import { daysOfWeek, flameColors } from "../data/data";
 import { availableIcons } from "../data/data";
+import { HabitContext } from "../context/HabitContext.jsx";
+import { MiscContext } from "../context/MiscContext.jsx";
 
 
 
-const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak, handleDeleteHabit}) => {
+const HabitComponent = ({ id, handleDeleteHabit}) => {
+	const { habitList, setHabitList } = useContext(HabitContext);
+	const { miscInfo , setMiscInfo } = useContext(MiscContext);
 
+	const thisHabit = habitList[id];
+
+	
 	const [habitsCompletedToday, setHabitsCompletedToday] = useState([]);
-	const [firstDayOfWeek, setFirstDayOfWeek] = useState("sat"); // Sat Sun Mon
+	
 
 	const getSreakColorForAHabit = (id) => {
-		return flameColors[2];  // 0 - 9
+		return flameColors[0];  // 0 - 9
 	};
 
 	const getPercentage = (id) => {
-		return "40%";
+
 	};
 
 
@@ -24,20 +31,20 @@ const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak, handleDel
 		<div className="group relative bg-slate-900 border-[2px] py-6 px-6 border-slate-800 rounded-xl hover:border-slate-700 transition-all flex flex-col justify-start gap-8">
 			<div className="flex justify-between items-center">
 				<div className="flex justify-center items-center gap-3">
-					<div className="text-white w-11 h-11 rounded-md flex justify-center items-center" style={{backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}>
+					<div className="text-white w-11 h-11 rounded-md flex justify-center items-center" style={{backgroundImage: `linear-gradient(to right, ${thisHabit.colorOne}, ${thisHabit.colorTwo})`}}>
 						{
-							icon ?
-								availableIcons[icon].icon :
+							thisHabit.icon ?
+								availableIcons[thisHabit.icon].icon :
 								null
 						}
 					</div>
 					<div>
-						<p className="font-poppins font-[500] text-xl text-white select-none">{title}</p>
+						<p className="font-poppins font-[500] text-xl text-white select-none">{thisHabit.name}</p>
 					</div>
 				</div>
 
 				<div>
-					<div className="text-white p-[5px] rounded-md cursor-pointer hover:opacity-75 transition-all" style={{backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}><Check /></div>
+					<div className="text-white p-[5px] rounded-md cursor-pointer hover:opacity-75 transition-all" style={{backgroundImage: `linear-gradient(to right, ${thisHabit.colorOne}, ${thisHabit.colorTwo})`}}><Check /></div>
 				</div>
 			</div>
 			
@@ -48,7 +55,7 @@ const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak, handleDel
 				</div>
 				<div className="relative w-full h-2">
 					<div className="absolute w-full bg-slate-700 rounded-xl h-full"></div>
-					<div className="absolute h-full rounded-xl transition-all" style={{width: getPercentage(0), backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}></div>
+					<div className="absolute h-full rounded-xl transition-all" style={{width: getPercentage(0), backgroundImage: `linear-gradient(to right, ${thisHabit.colorOne}, ${thisHabit.colorTwo})`}}></div>
 				</div>
 			</div>
 
@@ -57,8 +64,14 @@ const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak, handleDel
 					<p className="text-gray-300 font-poppins text-sm font-[300]">This Week</p>
 					<div className="flex gap-1">
 						{
-							daysOfWeek[firstDayOfWeek].map(day => (
-								<div key={day} className="rounded-[8px] w-8 h-8 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none" style={{backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}>{day}</div>
+							daysOfWeek[miscInfo.firstDayOfWeek].map(day => (
+								<div
+									key={day}
+									className="rounded-[8px] w-8 h-8 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none"
+									style={thisHabit.acitveDays.includes(day) ? {backgroundImage: `linear-gradient(to right, ${thisHabit.colorOne}, ${thisHabit.colorTwo})`} : null}
+								>
+									{day}
+								</div>
 							))
 						}
 					</div>
@@ -69,12 +82,13 @@ const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak, handleDel
 					<p className="text-gray-200 font-poppins font-[400] text-sm group-hover:text-white group-hover:font-[500] transition-all">9</p>
 				</div>
 			</div>
-			
+
+			{/* delete button, only visible while hovering a habit box */}
 			<div
-				className="absolute opacity-0 top-4 left-1/2 text-rose-500 hover:text-rose-700 transition-all cursor-pointer group-hover:opacity-100 duration-200"
+				className="absolute opacity-0 top-8 left-1/2 text-rose-500 hover:text-rose-700 transition-all cursor-pointer group-hover:opacity-100 duration-200"
 				onClick={() => {handleDeleteHabit(id)}}
 			>
-				<Trash2 size={35}/>
+				<Trash2 size={28}/>
 			</div>
 		</div>
 	)

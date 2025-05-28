@@ -28,7 +28,7 @@ const HabitsSection = ({ saveToLocalStorage, loadFromLocalStorage }) => {
 		<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 			{
 				habitList && habitList.map(habit => (
-					<HabitComponent key={habit.id} id={habit.id} title={habit.name} colorOne={habit.colorOne} colorTwo={habit.colorTwo} icon={habit.icon} streak={habit.streak} handleDeleteHabit={handleDeleteHabit}/>
+					<HabitComponent key={habit.id} id={habit.id} handleDeleteHabit={handleDeleteHabit}/>
 				))
 			}			
 		</div>
