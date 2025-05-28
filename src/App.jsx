@@ -1,13 +1,11 @@
 import StatsSection from  "./components/StatsSection";
 import HabitsSection from "./components/HabitsSection";
 import HeaderSection from "./components/HeaderSection";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import AddHabitModal from "./components/AddHabitModal";
-import { HabitContext } from './context/HabitContext.jsx';
 
 
 const App = () => {
-	const { habitList, setHabitList } = useContext(HabitContext);
 	const [addModalOpen, setAddModalOpen] = useState(false);
 	
 	const saveToLocalStorage = (key, value) => {
@@ -20,8 +18,6 @@ const App = () => {
 			return data;
 		}
 	}
-
-
 
 	return (
 			<div className="relative min-h-screen bg-gray-950 p-10">

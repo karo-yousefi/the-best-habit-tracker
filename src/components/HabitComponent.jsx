@@ -24,8 +24,12 @@ const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak, handleDel
 		<div className="group relative bg-slate-900 border-[2px] py-6 px-6 border-slate-800 rounded-xl hover:border-slate-700 transition-all flex flex-col justify-start gap-8">
 			<div className="flex justify-between items-center">
 				<div className="flex justify-center items-center gap-3">
-					<div className="bg-gradient-to-bl ${colorOne} ${colorTwo} text-white p-[5px] rounded-md" style={{backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}>
-						{availableIcons[icon].icon}
+					<div className="text-white w-11 h-11 rounded-md flex justify-center items-center" style={{backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}>
+						{
+							icon ?
+								availableIcons[icon].icon :
+								null
+						}
 					</div>
 					<div>
 						<p className="font-poppins font-[500] text-xl text-white select-none">{title}</p>

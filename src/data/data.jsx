@@ -1,5 +1,4 @@
 import {
-	Flame, ShieldCheck, BookCheck, Calendar,
   Code, Book, Pen, Laptop, FileText,
   Dumbbell, HeartPulse, Droplet, Bed,
   Brain, Sunrise, Moon, Feather,
@@ -8,37 +7,6 @@ import {
   Home, ShoppingCart,
   Target, Smile,
 } from "lucide-react";
-
-const statsInfo = [
-	{
-		id: 0,
-		title: "Completed Today",
-		icon: <BookCheck size={32} />,
-		fromColor: "from-lime-500",
-		toColor: "to-sky-600",
-	},
-	{
-		id: 1,
-		title: "Longest Streak",
-		icon: <Flame size={32} />,
-		fromColor: "from-purple-500",
-		toColor: "to-rose-600",
-	},
-	{
-		id: 2,
-		title: "Active Habits",
-		icon: <ShieldCheck size={32} />,
-		fromColor: "from-yellow-500",
-		toColor: "to-rose-600",
-	},
-	{
-		id: 3,
-		title: "Days Left",
-		icon: <Calendar size={32} />,
-		fromColor: "from-purple-500",
-		toColor: "to-sky-600",
-	},
-];
 
 
 const daysOfWeek = {
@@ -98,7 +66,6 @@ const availableIcons = [
 ]
 
 export {
-	statsInfo,
 	daysOfWeek,
 	flameColors,
 	howOftenOptions,
