@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Check, Flame } from "lucide-react";
+import { Check, Flame, Trash2 } from "lucide-react";
 import { daysOfWeek, flameColors } from "../data/data";
 import { availableIcons } from "../data/data";
 
 
 
-const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak}) => {
+const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak, handleDeleteHabit}) => {
 
 	const [habitsCompletedToday, setHabitsCompletedToday] = useState([]);
 	const [firstDayOfWeek, setFirstDayOfWeek] = useState("sat"); // Sat Sun Mon
@@ -27,9 +27,8 @@ const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak}) => {
 	}
 
 
-
 	return (
-		<div className="bg-slate-900 border-[2px] py-6 px-6 border-slate-800 rounded-xl hover:border-slate-700 transition-all flex flex-col justify-start gap-8">
+		<div className="group relative bg-slate-900 border-[2px] py-6 px-6 border-slate-800 rounded-xl hover:border-slate-700 transition-all flex flex-col justify-start gap-8">
 			<div className="flex justify-between items-center">
 				<div className="flex justify-center items-center gap-3">
 					<div className="bg-gradient-to-bl ${colorOne} ${colorTwo} text-white p-[5px] rounded-md" style={{backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`}}>
@@ -74,7 +73,12 @@ const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak}) => {
 				</div>
 			</div>
 			
-			
+			<div
+				className="absolute opacity-0 top-4 left-1/2 text-rose-500 hover:text-rose-700 transition-all cursor-pointer group-hover:opacity-100 duration-200"
+				onClick={() => {handleDeleteHabit(id)}}
+			>
+				<Trash2 size={35}/>
+			</div>
 		</div>
 	)
 }

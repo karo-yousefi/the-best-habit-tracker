@@ -40,22 +40,17 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 		}
 
 		let newHabitList = [];
-
 		if (habitList) {
 			newHabitList = [...habitList];
 		}
 		newHabitList.push(newHabitData);
-		setHabitList(newHabitList);
 
+		setHabitList(newHabitList);
 		saveToLocalStorage("habits", newHabitList);
 
+		setNewHabitId(newHabitId + 1);
+
 	}
-
-	useEffect(() => {
-
-
-	}, [])
-
 
 
 
@@ -117,7 +112,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 							From
 						</label>
 						<div className="w-9 h-9 rounded-[50%] overflow-hidden relative">
-							<input type="color" value={colorOne} onChange={(e) => setColorOne(e.target.value)} className="w-20 h-20 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] cursor-pointer" />
+							<input type="color" value={colorOne} onChange={(e) => setColorOne(e.target.value)} className="w-20 h-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer" />
 						</div>
 					</div>
 
@@ -126,7 +121,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 							To
 						</label>
 						<div className="w-9 h-9 rounded-[50%] overflow-hidden relative">
-							<input type="color" value={colorTwo} onChange={(e) => setColorTwo(e.target.value)} className="w-20 h-20 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] cursor-pointer" />
+							<input type="color" value={colorTwo} onChange={(e) => setColorTwo(e.target.value)} className="w-20 h-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer" />
 						</div>
 					</div>
 
