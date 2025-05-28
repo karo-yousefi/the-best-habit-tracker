@@ -14,17 +14,10 @@ const HabitComponent = ({ id, title, colorOne, colorTwo, icon, streak, handleDel
 		return flameColors[2];  // 0 - 9
 	};
 
-	const handleHabitComplete = (id) => {
-		return null;
-	};
-
 	const getPercentage = (id) => {
 		return "40%";
-	}
+	};
 
-	const changeFirstDayOfWeek = () => {
-		return null;
-	}
 
 
 	return (

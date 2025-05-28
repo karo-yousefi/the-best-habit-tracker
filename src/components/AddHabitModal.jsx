@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import CustomDropdown from "./CustomDropdown";
-import { availableIcons, howOftenOptions } from "../data/data";
+import { availableIcons } from "../data/data";
 import { useContext } from "react";
-import HabitContext from "../context/habitContext";
+import { HabitContext } from "../context/HabitContext.jsx";
 
-const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, loadFromLocalStorage, habitList, setHabitList }) => {
+
+const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage }) => {
+	const { habitList, setHabitList } = useContext(HabitContext);
 	const modalBGRef = useRef(null);
 
 	const [habitName, setHabitName] = useState("");

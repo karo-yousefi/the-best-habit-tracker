@@ -1,17 +1,15 @@
 import StatsSection from  "./components/StatsSection";
 import HabitsSection from "./components/HabitsSection";
 import HeaderSection from "./components/HeaderSection";
-import HabitContext from "./context/habitContext";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import AddHabitModal from "./components/AddHabitModal";
+import { HabitContext } from './context/HabitContext.jsx';
 
 
 const App = () => {
-	const [habits, setHabits] = useState([]);
+	const { habitList, setHabitList } = useContext(HabitContext);
 	const [addModalOpen, setAddModalOpen] = useState(false);
-	const [habitList, setHabitList] = useState([]);
-
-
+	
 	const saveToLocalStorage = (key, value) => {
 		localStorage.setItem(key, value ? JSON.stringify(value) : "")
 	}
@@ -26,7 +24,6 @@ const App = () => {
 
 
 	return (
-		<HabitContext.Provider value={habits}>
 			<div className="relative min-h-screen bg-gray-950 p-10">
 				<div className="max-w-[60rem] mx-auto">
 					{/* header */}
@@ -36,14 +33,13 @@ const App = () => {
 					<StatsSection />
 
 					{/* habits */}
-					<HabitsSection habitList={habitList} setHabitList={setHabitList} saveToLocalStorage={saveToLocalStorage} loadFromLocalStorage={loadFromLocalStorage} />
+					<HabitsSection saveToLocalStorage={saveToLocalStorage} loadFromLocalStorage={loadFromLocalStorage} />
 				</div>
 
 				{/* add new habit modal */}
-				<AddHabitModal addModalOpen={addModalOpen} setAddModalOpen={setAddModalOpen} saveToLocalStorage={saveToLocalStorage} loadFromLocalStorage={loadFromLocalStorage} habitList={habitList} setHabitList={setHabitList} /> 
+				<AddHabitModal addModalOpen={addModalOpen} setAddModalOpen={setAddModalOpen} saveToLocalStorage={saveToLocalStorage} /> 
 				
 			</div>
-		</HabitContext.Provider>
 	);
 }
 

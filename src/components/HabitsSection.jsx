@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
-import HabitComponent from "./HabitComponent";
-
-
-const HabitsSection = ({ habitList, setHabitList, saveToLocalStorage, loadFromLocalStorage }) => {
-
+import { HabitContext } from "../context/HabitContext.jsx";
+import  { useContext } from "react";
+import HabitComponent from "./HabitComponent.jsx";
 
 
 
+const HabitsSection = ({ saveToLocalStorage, loadFromLocalStorage }) => {
+
+	const { habitList, setHabitList } = useContext(HabitContext);
+
+
+	const changeFirstDayOfWeek = () => {
+		return null;
+	}
+	
 	const handleDeleteHabit = (habitId) => {
 		const tempHabitList = [...habitList];
 
