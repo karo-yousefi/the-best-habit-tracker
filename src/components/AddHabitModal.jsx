@@ -5,7 +5,7 @@ import { MiscContext } from "../context/MiscContext.jsx";
 import { daysOfWeek } from "../data/data.jsx";
 
 
-const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage }) => {
+const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, loadFromLocalStorage }) => {
 	const { habitList, setHabitList } = useContext(HabitContext);
 	const { miscInfo , setMiscInfo } = useContext(MiscContext);
 
@@ -37,7 +37,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage }) =>
 
 		// undefined checking!!
 		const newHabitData = {
-			id: newHabitId,
+			id: newHabitId, 
 			name: habitName,
 			acitveDays: newHabitActiveDays,
 			colorOne: colorOne,
@@ -58,7 +58,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage }) =>
 		resetInputs();
 
 		setNewHabitId(newHabitId + 1);
-
+		
 	}
 
 	const handleDayClick = (day) => {
@@ -75,6 +75,13 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage }) =>
 		setNewHabitActiveDays(tempNewHabitActiveDays);
 	}
 
+
+	useEffect(() => {
+		// setHabitList(loadFromLocalStorage("habits"))
+		if (habitList && habitList.length > 0) {
+			setNewHabitId(habitList.at(-1).id + 1);
+		}
+	}, [])
 
 
 	return (

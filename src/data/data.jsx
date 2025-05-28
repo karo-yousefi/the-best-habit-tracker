@@ -1,11 +1,11 @@
 import {
   Code, Book, Pen, Laptop, FileText,
   Dumbbell, HeartPulse, Droplet, Bed,
-  Brain, Sunrise, Moon, Feather,
+  Brain, Sunrise, Moon, ScanHeart,
   Music, Palette,
-  Phone, Mail, Users,
+  MonitorSmartphone, Mail, Users,
   Home, ShoppingCart,
-  Target, Smile,
+  Target, Smile, CircleEllipsis,
 } from "lucide-react";
 
 
@@ -47,16 +47,17 @@ const availableIcons = [
   { id: 9, icon: <Brain />, label: "Meditate" },
   { id: 10, icon: <Sunrise />, label: "Morning Routine" },
   { id: 11, icon: <Moon />, label: "Evening Routine" },
-  { id: 12, icon: <Feather />, label: "Self-Care" },
+  { id: 12, icon: <ScanHeart />, label: "Self-Care" },
   { id: 13, icon: <Music />, label: "Music" },
   { id: 14, icon: <Palette />, label: "Art" },
-  { id: 15, icon: <Phone />, label: "Limit Screen Time" },
-  { id: 16, icon: <Mail />, label: "Inbox Zero" },
+  { id: 15, icon: <MonitorSmartphone />, label: "Limit Screen Time" },
+  { id: 16, icon: <Mail />, label: "Checking Mails" },
   { id: 17, icon: <Users />, label: "Social Time" },
   { id: 18, icon: <Home />, label: "Home Chores" },
   { id: 19, icon: <ShoppingCart />, label: "Groceries" },
   { id: 20, icon: <Target />, label: "Goals" },
-  { id: 21, icon: <Smile />, label: "Gratitude" }
+  { id: 21, icon: <Smile />, label: "Gratitude" },
+  { id: 22, icon: <CircleEllipsis />, label: "Other"},
 ];
 
 const defaultSettings = {

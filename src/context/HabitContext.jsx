@@ -4,12 +4,12 @@ export const HabitContext = createContext();
 
 export const HabitProvider = ({ children }) => {
   const [habitList, setHabitList] = useState(() => {
-    const saved = localStorage.getItem('habits');
+    const saved = localStorage.getItem("habits");
     return saved ? JSON.parse(saved) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('habits', JSON.stringify(habitList));
+    localStorage.setItem("habits", JSON.stringify(habitList));
   }, [habitList]);
 
   return (

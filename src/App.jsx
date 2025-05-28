@@ -33,7 +33,7 @@ const App = () => {
 				</div>
 
 				{/* add new habit modal */}
-				<AddHabitModal addModalOpen={addModalOpen} setAddModalOpen={setAddModalOpen} saveToLocalStorage={saveToLocalStorage} /> 
+				<AddHabitModal addModalOpen={addModalOpen} setAddModalOpen={setAddModalOpen} saveToLocalStorage={saveToLocalStorage} loadFromLocalStorage={loadFromLocalStorage} /> 
 				
 			</div>
 	);
