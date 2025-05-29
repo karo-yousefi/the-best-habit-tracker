@@ -4,8 +4,17 @@ import { HabitContext } from "../context/HabitContext.jsx";
 import { Flame, ShieldCheck, BookCheck, Calendar } from "lucide-react";
 
 // Calculation functions
+
+const getdayName = () => {
+	const today = new Date();
+	const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
+
+	return dayName.slice(0, 3).toLowerCase();
+}
+
+
 const calculateCompletedToday = (habitList) => {
-	return habitList.filter(habit => habit.completedToday).length;
+	return habitList.filter(habit => habit.completedInDays.includes(getdayName())).length;
 };
 
 const calculateLongestStreak = (habitList) => {

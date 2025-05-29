@@ -40,6 +40,8 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 			id: newHabitId, 
 			name: habitName,
 			acitveDays: newHabitActiveDays,
+			completedInDays: [],
+			goal: 0,
 			colorOne: colorOne,
 			colorTwo: colorTwo,
 			icon: selectedIcon,
@@ -77,7 +79,6 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 
 
 	useEffect(() => {
-		// setHabitList(loadFromLocalStorage("habits"))
 		if (habitList && habitList.length > 0) {
 			setNewHabitId(habitList.at(-1).id + 1);
 		}

@@ -2,18 +2,13 @@ import { useEffect, useState, useContext } from "react";
 import { ArrowUpNarrowWide, Check, Flame, Trash2 } from "lucide-react";
 import { daysOfWeek, flameColors } from "../data/data";
 import { availableIcons } from "../data/data";
-// import { HabitContext } from "../context/HabitContext.jsx";
 import { MiscContext } from "../context/MiscContext.jsx";
 
 
 
-const HabitComponent = ({ habit, handleDeleteHabit}) => {
-	// const { habitList, setHabitList } = useContext(HabitContext);
+const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 	const { miscInfo , setMiscInfo } = useContext(MiscContext);
 
-
-	
-	const [habitsCompletedToday, setHabitsCompletedToday] = useState([]);
 	
 
 	const getSreakColorForAHabit = (id) => {
@@ -23,6 +18,49 @@ const HabitComponent = ({ habit, handleDeleteHabit}) => {
 	const getPercentage = (id) => {
 		return "40%"
 	};
+
+	const getdayName = () => {
+		const today = new Date();
+		const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
+
+		return dayName.slice(0, 3).toLowerCase();
+	}
+
+
+	const handleCompleteHabitToday = (habit) => {
+		const today = getdayName();
+
+		if (habit.acitveDays.includes(today)) {
+			const newCompletedInDays = [...habit.completedInDays];
+
+			if (!newCompletedInDays.includes(today)) { // Habit is not done, add it to the done list
+				newCompletedInDays.push(today);
+
+				setHabitList(prevList => // Updating the array of habits, changing completedInDays property
+					prevList.map(h =>
+					h.id === habit.id
+						? { ...h, completedInDays: newCompletedInDays }
+						: h
+					)
+				);
+			}
+			else {
+				newCompletedInDays.splice(newCompletedInDays.indexOf(today), 1);
+				
+				setHabitList(prevList => // Updating the array of habits, changing completedInDays property
+					prevList.map(h =>
+					h.id === habit.id
+						? { ...h, completedInDays: newCompletedInDays }
+						: h
+					)
+				);
+			}
+			
+
+
+
+		}
+	}
 
 
 
@@ -43,7 +81,13 @@ const HabitComponent = ({ habit, handleDeleteHabit}) => {
 				</div>
 
 				<div>
-					<div className="text-white p-[5px] rounded-md cursor-pointer hover:opacity-75 transition-all" style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}><Check /></div>
+					<div
+						className="text-white p-[5px] rounded-md cursor-pointer hover:opacity-75 transition-all"
+						style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}
+						onClick={() => handleCompleteHabitToday(habit)}
+					>
+						<Check />
+					</div>
 				</div>
 			</div>
 			
@@ -66,8 +110,9 @@ const HabitComponent = ({ habit, handleDeleteHabit}) => {
 							daysOfWeek[miscInfo.firstDayOfWeek].map(day => (
 								<div
 									key={day}
-									className="rounded-[8px] w-8 h-8 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none"
-									style={habit.acitveDays.includes(day) ? {backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`} : null}
+									className={`rounded-[8px] w-8 h-8 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none
+										${habit.acitveDays.includes(day) ? "opacity-100" : "opacity-0"} ${habit.completedInDays.includes(day) ? "grayscale-0" : "grayscale-100"}`}
+									style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}
 								>
 									{day}
 								</div>
