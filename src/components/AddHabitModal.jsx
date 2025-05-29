@@ -41,7 +41,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 		const newHabitData = {
 			id: newHabitId, 
 			name: habitName,
-			acitveDays: newHabitActiveDays,
+			activeDays: newHabitActiveDays,
 			completedInDays: [],
 			goal: habitGoal,
 			colorOne: colorOne,
@@ -62,7 +62,6 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 		resetInputs();
 
 		setNewHabitId(newHabitId + 1);
-		console.log(newHabitId);
 	}
 
 	const handleDayClick = (day) => {

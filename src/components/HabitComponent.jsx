@@ -62,7 +62,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 	const handleCompleteHabitToday = (habit) => {
 		const today = getdayName();
 
-		if (habit.acitveDays.includes(today)) {
+		if (habit.activeDays.includes(today)) {
 			const newCompletedInDays = [...habit.completedInDays];
 
 			if (!newCompletedInDays.includes(today)) { // Habit is not done, add it to the done list
@@ -88,9 +88,6 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 				);
 			}
 			
-
-
-
 		}
 	}
 
@@ -114,9 +111,11 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 
 				<div>
 					<div
-						className="text-white p-[5px] rounded-md cursor-pointer hover:opacity-75 transition-all"
+						className={`text-white p-[5px] rounded-md  transition-all ${habit.activeDays.includes(getdayName()) ? "opacity-100 hover:opacity-75 cursor-pointer" : "grayscale-100"}`}
 						style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}
-						onClick={() => handleCompleteHabitToday(habit)}
+						onClick={habit.activeDays.includes(getdayName()) ?  () => handleCompleteHabitToday(habit) : null}
+
+
 					>
 						<Check />
 					</div>
@@ -147,7 +146,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 								<div
 									key={day}
 									className={`rounded-[8px] w-8 h-8 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none
-										${habit.acitveDays.includes(day) ? "opacity-100" : "opacity-0"} ${habit.completedInDays.includes(day) ? "grayscale-0" : "grayscale-100"}`}
+										${habit.activeDays.includes(day) ? "opacity-100" : "opacity-0"} ${habit.completedInDays.includes(day) ? "grayscale-0" : "grayscale-100"}`}
 									style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}
 								>
 									{day}
