@@ -13,8 +13,9 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 	const modalBGRef = useRef(null);
 
 	const [habitName, setHabitName] = useState(null);
-	const [habitGoal, setHabitGoal] = useState(null);
+	const [habitGoal, setHabitGoal] = useState(0);
 	const [newHabitActiveDays, setNewHabitActiveDays] = useState([...daysOfWeek[miscInfo.firstDayOfWeek]]);
+	const [howManyTimes, setHowManyTimes] = useState(0);
 	const [colorOne, setColorOne] = useState("#8a26fc");
 	const [colorTwo, setColorTwo] = useState("#fa147f");
 	const [selectedIcon, setSelectedIcon] = useState(null);
@@ -23,7 +24,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 
 	const resetInputs = () => {
 		setHabitName(null);
-		setHabitGoal(null)
+		setHabitGoal(0)
 		setColorOne("#8a26fc");
 		setColorTwo("#fa147f");
 		setSelectedIcon(null);
@@ -48,6 +49,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 			colorTwo: colorTwo,
 			icon: selectedIcon,
 			streak: 0,
+			times: howManyTimes, 
 		}
 
 		let newHabitList = [];

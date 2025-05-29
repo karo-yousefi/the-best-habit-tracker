@@ -47,8 +47,13 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 	}
 
 	const getPercentage = () => {
-		const percentage = Math.floor(2 * 100 / habit.goal);
-		return `${percentage}%`;
+		if (habit.goal > 0) {
+			const percentage = Math.floor(habit.times * 100 / habit.goal);
+			return `${percentage}%`;
+		}
+		else {
+			return "0%";
+		}
 	};
 
 	const getdayName = () => {
@@ -71,10 +76,11 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 				setHabitList(prevList => // Updating the array of habits, changing completedInDays property
 					prevList.map(h =>
 					h.id === habit.id
-						? { ...h, completedInDays: newCompletedInDays }
+						? { ...h, completedInDays: newCompletedInDays, times: h.times+1 }
 						: h
 					)
 				);
+
 			}
 			else {
 				newCompletedInDays.splice(newCompletedInDays.indexOf(today), 1);
@@ -82,7 +88,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 				setHabitList(prevList => // Updating the array of habits, changing completedInDays property
 					prevList.map(h =>
 					h.id === habit.id
-						? { ...h, completedInDays: newCompletedInDays }
+						? { ...h, completedInDays: newCompletedInDays, times: h.times-1 }
 						: h
 					)
 				);
@@ -114,8 +120,6 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 						className={`text-white p-[5px] rounded-md  transition-all ${habit.activeDays.includes(getdayName()) ? "opacity-100 hover:opacity-75 cursor-pointer" : "grayscale-100"}`}
 						style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}
 						onClick={habit.activeDays.includes(getdayName()) ?  () => handleCompleteHabitToday(habit) : null}
-
-
 					>
 						<Check />
 					</div>
@@ -127,7 +131,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 					<p className="text-gray-300 font-poppins text-sm font-[300]">Progress</p>
 					<p className="text-gray-300 font-poppins text-sm font-[300]">
 						{`
-							2/${habit.goal}
+							${habit.times} / ${habit.goal && habit.goal > 0 ? habit.goal : "∞"}
 						`}
 					</p>
 				</div>
