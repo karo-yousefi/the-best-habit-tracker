@@ -22,6 +22,13 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 	const [newHabitId, setNewHabitId] = useState(0);
 
 
+	const [weekState, setWeekState] = useState(daysOfWeek[miscInfo.firstDayOfWeek].map(day => ({
+		day,
+		isActive: true,
+		hasCompleted: false,
+	})));
+	const [habitTimesDone, setHabitTimesDone] = useState(0);
+
 	const resetInputs = () => {
 		setHabitName(null);
 		setHabitGoal(0)
@@ -40,16 +47,19 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 
 		// undefined checking!!
 		const newHabitData = {
-			id: newHabitId, 
+			id: newHabitId,
 			name: habitName,
-			activeDays: newHabitActiveDays,
-			completedInDays: [],
+			activeDays: newHabitActiveDays, // what days in the week the the habit has to be done
+			completedInDays: [], // what days the habit is completed in
 			goal: habitGoal,
-			colorOne: colorOne,
+			times: howManyTimes, // the amount of time the habit has been done
+			colorOne: colorOne, 
 			colorTwo: colorTwo,
 			icon: selectedIcon,
 			streak: 0,
-			times: howManyTimes, 
+
+			week: weekState,
+			timesDone: habitTimesDone,
 		}
 
 		let newHabitList = [];
@@ -67,25 +77,32 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 	}
 
 	const handleDayClick = (day) => {
-		const tempNewHabitActiveDays = [...newHabitActiveDays];
-
-		if (tempNewHabitActiveDays.includes(day)) {
-			const index = tempNewHabitActiveDays.indexOf(day);
-			tempNewHabitActiveDays.splice(index, 1);
-		}
-		else {
-			const index = daysOfWeek[miscInfo.firstDayOfWeek].indexOf(day);
-			tempNewHabitActiveDays.splice(index, 0, day);
-		}
-		setNewHabitActiveDays(tempNewHabitActiveDays);
+		setWeekState(prev => 
+				prev.map(d => 
+					d.day === day ?
+						{ ...d, isActive: !d.isActive } :
+						d
+				)
+			)
 	}
 
+
+	const checkIsActive = (day) => {
+		const dayObj = weekState.find(d => d.day === day);
+		return dayObj.isActive;
+	};
+
+	const checkHasCompleted = (day) => {
+		const dayObj = weekState.find(d => d.day === day);
+		return dayObj.hasCompleted;
+	}
 
 	useEffect(() => {
 		if (habitList && habitList.length > 0) {
 			setNewHabitId(habitList.at(-1).id + 1);
 		}
 	}, [])
+
 
 
 	return (
@@ -138,16 +155,19 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 					<div className="flex flex-col gap-8 md:flex-row md:justify-between md:items-center">
 						<div className="flex gap-2">
 							{
-								daysOfWeek[miscInfo.firstDayOfWeek].map(day => (
-									<div
+								daysOfWeek[miscInfo.firstDayOfWeek].map(day => {
+									return (
+										<div
 										key={day}
 										className="rounded-[8px] w-9 h-9 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none cursor-pointer capitalize transition-all"
-										style={newHabitActiveDays.includes(day) ? {backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`} : null} // Needs animation
+										style={checkIsActive(day) ? {backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`} : null} // Needs animation
 										onClick={() => handleDayClick(day)}
 									>
 										{day}
 									</div>
-								))
+									)
+								}	
+								)
 							}
 						</div>
 						<div className="w-40 flex flex-col gap-2">
