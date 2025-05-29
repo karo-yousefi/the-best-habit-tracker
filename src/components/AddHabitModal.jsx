@@ -12,7 +12,8 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 
 	const modalBGRef = useRef(null);
 
-	const [habitName, setHabitName] = useState("");
+	const [habitName, setHabitName] = useState(null);
+	const [habitGoal, setHabitGoal] = useState(null);
 	const [newHabitActiveDays, setNewHabitActiveDays] = useState([...daysOfWeek[miscInfo.firstDayOfWeek]]);
 	const [colorOne, setColorOne] = useState("#8a26fc");
 	const [colorTwo, setColorTwo] = useState("#fa147f");
@@ -21,7 +22,8 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 
 
 	const resetInputs = () => {
-		setHabitName("");
+		setHabitName(null);
+		setHabitGoal(null)
 		setColorOne("#8a26fc");
 		setColorTwo("#fa147f");
 		setSelectedIcon(null);
@@ -41,7 +43,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 			name: habitName,
 			acitveDays: newHabitActiveDays,
 			completedInDays: [],
-			goal: 0,
+			goal: habitGoal,
 			colorOne: colorOne,
 			colorTwo: colorTwo,
 			icon: selectedIcon,
@@ -60,7 +62,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 		resetInputs();
 
 		setNewHabitId(newHabitId + 1);
-		
+		console.log(newHabitId);
 	}
 
 	const handleDayClick = (day) => {
@@ -124,29 +126,44 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 						placeholder="e.g., Workout, Code, Going Out"
 						className="text-white font-poppins placeholder:text-gray-400 px-1.5 py-2 w-full outline-none border-[1px] border-gray-500 rounded-md bg-gray-800 active:border-whites focus:border-white transition-all"
 						onChange={(e) => setHabitName(e.target.value)}
-						value={habitName}
 					/>
 				</div>
 
-				{/* how often input */}
+				{/* how often and goal input */}
 				<div className="flex flex-col gap-3 w-full">
 					<label className="font-poppins text-md md:text-lg font-[500] text-white select-none">
 						How often?
 					</label>
-					<div className="flex gap-2">
-						{
-							daysOfWeek[miscInfo.firstDayOfWeek].map(day => (
-								<div
-									key={day}
-									className="rounded-[8px] w-9 h-9 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none cursor-pointer capitalize transition-all"
-									style={newHabitActiveDays.includes(day) ? {backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`} : null} // Needs animation
-									onClick={() => handleDayClick(day)}
-								>
-									{day}
-								</div>
-							))
-						}
+					<div className="flex flex-col gap-8 md:flex-row md:justify-between md:items-center">
+						<div className="flex gap-2">
+							{
+								daysOfWeek[miscInfo.firstDayOfWeek].map(day => (
+									<div
+										key={day}
+										className="rounded-[8px] w-9 h-9 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none cursor-pointer capitalize transition-all"
+										style={newHabitActiveDays.includes(day) ? {backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`} : null} // Needs animation
+										onClick={() => handleDayClick(day)}
+									>
+										{day}
+									</div>
+								))
+							}
+						</div>
+						<div className="w-40 flex flex-col gap-2">
+							<label className="font-poppins text-md md:text-lg font-[500] text-white select-none">
+								Goal:
+							</label>
+							<input
+							type="text"
+							placeholder="30 Days"
+							className="text-white font-poppins placeholder:text-gray-400 px-1.5 py-2 w-full outline-none border-[1px] border-gray-500 rounded-md bg-gray-800 active:border-whites focus:border-white transition-all"
+							onChange={(e) => {
+								setHabitGoal(Math.floor(e.target.value))
+							}}
+						/>
+						</div>
 					</div>
+					
 				</div>
 
 				{/* color selection inputs */}
