@@ -11,12 +11,44 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 
 	
 
-	const getSreakColorForAHabit = (id) => {
-		return flameColors[0];  // 0 - 9
-	};
+	const getSreakColorForAHabit = () => {
+		const streak = habit.streak;
 
-	const getPercentage = (id) => {
-		return "40%"
+		if (streak < 2) {
+			return  flameColors[0];
+		}
+		else if (streak > 1 && streak <= 3){
+			return  flameColors[1];
+		}
+		else if (streak > 3 && streak <= 6){
+			return  flameColors[2];
+		}
+		else if (streak > 6 && streak <= 9){
+			return  flameColors[3];
+		}
+		else if (streak > 9 && streak <= 14){
+			return  flameColors[4];
+		}
+		else if (streak > 14 && streak <= 18){
+			return  flameColors[5];
+		}
+		else if (streak > 18 && streak <= 23){
+			return  flameColors[6];
+		}
+		else if (streak > 23 && streak <= 27){
+			return  flameColors[7];
+		}
+		else if (streak > 27 && streak <= 32){
+			return  flameColors[8];
+		}
+		else if (streak > 33) {
+			return  flameColors[9];
+		}
+	}
+
+	const getPercentage = () => {
+		const percentage = Math.floor(2 * 100 / habit.goal);
+		return `${percentage}%`;
 	};
 
 	const getdayName = () => {
@@ -94,7 +126,11 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 			<div className="flex flex-col justify-center items-center gap-3">
 				<div className="flex justify-between items-center w-full">
 					<p className="text-gray-300 font-poppins text-sm font-[300]">Progress</p>
-					<p className="text-gray-300 font-poppins text-sm font-[300]">7/30</p>
+					<p className="text-gray-300 font-poppins text-sm font-[300]">
+						{`
+							2/${habit.goal}
+						`}
+					</p>
 				</div>
 				<div className="relative w-full h-2">
 					<div className="absolute w-full bg-slate-700 rounded-xl h-full"></div>
@@ -123,7 +159,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 
 				<div className={"group bg-gray-700 flex gap-2 rounded-xl px-2 py-1.5 color items-center cursor-pointer"}>
 					<Flame className="group-hover:scale-120 transition-all" style={{color: getSreakColorForAHabit(0)}}/>
-					<p className="text-gray-200 font-poppins font-[400] text-sm group-hover:text-white group-hover:font-[500] transition-all">9</p>
+					<p className="text-gray-200 font-poppins font-[400] text-sm group-hover:text-white group-hover:font-[500] transition-all">{habit.streak}</p>
 				</div>
 			</div>
 
