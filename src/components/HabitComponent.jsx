@@ -168,8 +168,8 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 								<div
 									key={day}
 									className={`rounded-[8px] w-8 h-8 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none
-										${isActiveToday(day) ? "opacity-100" : "opacity-"} ${hasCompletedToday(day) ? "grayscale-0" : "grayscale-100"}`}
-									style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}
+										${isActiveToday(day) ? "opacity-100" : "opacity-0"}`}
+									style={hasCompletedToday(day) ? {backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`} : {backgroundImage: "linear-gradient(to right, #374151, #1e293b"}}
 								>
 									{day}
 								</div>

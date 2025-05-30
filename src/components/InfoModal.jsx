@@ -140,11 +140,6 @@ const InfoModal = ({ infoModalOpen, setInfoModalOpen }) => {
 						Have feedback or suggestions? Feel free to reach out to me at: <span className="text-violet-500">karoyousefi.80@gmail.com</span>
 					</p>
 				</section>
-
-
-
-
-
 			</div>
 		</div>
 

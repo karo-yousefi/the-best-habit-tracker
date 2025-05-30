@@ -48,8 +48,8 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 		const newHabitData = {
 			id: newHabitId,
 			name: habitName,
-			activeDays: newHabitActiveDays, // x what days in the week the the habit has to be done
-			completedInDays: [], // x what days the habit is completed in
+			// activeDays: newHabitActiveDays, // x what days in the week the the habit has to be done
+			// completedInDays: [], // x what days the habit is completed in
 			goal: habitGoal,
 			times: howManyTimes, // the amount of time the habit has been done
 			colorOne: colorOne, 
