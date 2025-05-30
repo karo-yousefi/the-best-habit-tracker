@@ -3,6 +3,8 @@ import HabitsSection from "./components/HabitsSection";
 import HeaderSection from "./components/HeaderSection";
 import { useState } from "react";
 import AddHabitModal from "./components/AddHabitModal";
+import { Analytics } from '@vercel/analytics/react';
+
 
 
 const App = () => {
@@ -35,6 +37,8 @@ const App = () => {
 				{/* add new habit modal */}
 				<AddHabitModal addModalOpen={addModalOpen} setAddModalOpen={setAddModalOpen} saveToLocalStorage={saveToLocalStorage} loadFromLocalStorage={loadFromLocalStorage} /> 
 				
+			<Analytics />
+
 			</div>
 	);
 }
