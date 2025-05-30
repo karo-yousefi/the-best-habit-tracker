@@ -84,13 +84,13 @@ const InfoModal = ({ infoModalOpen, setInfoModalOpen }) => {
 				<section id="why" className="w-full flex-col items-start justify-center gap-2">
 					<p className="text-white font-poppins text-xl pb-5 font-[600]">Why I Made It?</p>
 					<p className="text-white font-poppins pl-6 pb-4">
-						Every habit tracker I've used simply sucked. And belive me I've tried a lot of them. It's like they were designed by people who don't actually use them.
+						Every habit tracker I've used simply sucked. And believe me, I've tried a lot of them. It's like they were designed by people who don't actually use them.
 						Too many useless features nobody asked for, cluttering the app and making it impossible to focus.
 						Half of them lock you behind paywalls or bombard you with annoying ads every two seconds.
-						Some are only limited to one platform which is annoying.
+						Some are only limited to one platform, which is annoying.
 					</p>
 					<p className="text-white font-poppins pl-6 pb-4">
-						So I built this. Simple, no extra features, free, no ads, web-based and open-source. Just what a habit tracker should be.
+						So I built this. Simple, no extra features, free, no ads, web-based, and open-source. Just what a habit tracker should be.
 					</p>
 				</section>
 
@@ -99,9 +99,9 @@ const InfoModal = ({ infoModalOpen, setInfoModalOpen }) => {
 					<p className="text-white font-poppins text-xl pb-5 font-[600]">Why Its So Good?</p>
 					<p className="text-white font-poppins pl-6 pb-4">
 						This <a className="text-violet-500 hover:text-violet-700 transition-all" href="https://youtu.be/P6FORpg0KVo?si=akFxZggJpqhOKkcF">TED Talk</a> inspired me to build this.
-						In this TED Talk Luis von Ahn discussed the power of streaks and how they can make learning addictive.
+						In speech, Luis von Ahn discussed the power of streaks and how they can make learning addictive.
 						I decided to place a strong emphasis on streaks, each habit has a streak counter that resets if you miss a day. 
-						There's also a "longest streak" stat that's always visible, right in your face.
+						There's also a "longest streak" stat that's always visible, showing your highest streak for a habit.
 					</p>
 				</section>
 
@@ -109,10 +109,11 @@ const InfoModal = ({ infoModalOpen, setInfoModalOpen }) => {
 				<section id="usage" className="w-full flex-col items-start justify-center gap-2">
 					<p className="text-white font-poppins text-xl pb-5 font-[600]">How To Use It?</p>
 					<p className="text-white font-poppins pl-6 pb-4">
-
-					</p>
-					<p className="text-white font-poppins pl-6 pb-4">
-
+						First, figure out what habit you want to work on. This can be a bad habit you want to quit, or a good habit
+						that you want to develop. Set a goal for how many times you want to do it, and add the habit in the app. 
+						Leave the "goal" section empty or set it to 0 to have a habit without a specific goal.
+						You can also set what days you want to do the habit. For example, if you like to develop working out habit, 
+						you may want to repeat the habit only 3 days a week.
 					</p>
 				</section>
 
