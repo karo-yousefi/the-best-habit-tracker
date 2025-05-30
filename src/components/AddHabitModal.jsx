@@ -12,7 +12,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 
 	const modalBGRef = useRef(null);
 
-	const [habitName, setHabitName] = useState(null);
+	const [habitName, setHabitName] = useState("");
 	const [habitGoal, setHabitGoal] = useState(0);
 	const [newHabitActiveDays, setNewHabitActiveDays] = useState([...daysOfWeek[miscInfo.firstDayOfWeek]]);
 	const [howManyTimes, setHowManyTimes] = useState(0);
@@ -27,10 +27,9 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 		isActive: true,
 		hasCompleted: false,
 	})));
-	const [habitTimesDone, setHabitTimesDone] = useState(0);
 
 	const resetInputs = () => {
-		setHabitName(null);
+		setHabitName("");
 		setHabitGoal(0)
 		setColorOne("#8a26fc");
 		setColorTwo("#fa147f");
@@ -49,8 +48,8 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 		const newHabitData = {
 			id: newHabitId,
 			name: habitName,
-			activeDays: newHabitActiveDays, // what days in the week the the habit has to be done
-			completedInDays: [], // what days the habit is completed in
+			activeDays: newHabitActiveDays, // x what days in the week the the habit has to be done
+			completedInDays: [], // x what days the habit is completed in
 			goal: habitGoal,
 			times: howManyTimes, // the amount of time the habit has been done
 			colorOne: colorOne, 
@@ -59,7 +58,6 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 			streak: 0,
 
 			week: weekState,
-			timesDone: habitTimesDone,
 		}
 
 		let newHabitList = [];
@@ -144,6 +142,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 						placeholder="e.g., Workout, Code, Going Out"
 						className="text-white font-poppins placeholder:text-gray-400 px-1.5 py-2 w-full outline-none border-[1px] border-gray-500 rounded-md bg-gray-800 active:border-whites focus:border-white transition-all"
 						onChange={(e) => setHabitName(e.target.value)}
+						value={habitName}
 					/>
 				</div>
 
@@ -181,6 +180,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 							onChange={(e) => {
 								setHabitGoal(Math.floor(e.target.value))
 							}}
+							value={habitGoal}
 						/>
 						</div>
 					</div>

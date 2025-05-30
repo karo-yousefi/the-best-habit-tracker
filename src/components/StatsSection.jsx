@@ -1,9 +1,11 @@
 import StatsBox from "./StatsBox";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { HabitContext } from "../context/HabitContext.jsx";
 import { Flame, ShieldCheck, BookCheck, Calendar } from "lucide-react";
 
 // Calculation functions
+
+let howManyCompletedToday = 0
 
 const getdayName = () => {
 	const today = new Date();
@@ -14,6 +16,12 @@ const getdayName = () => {
 
 
 const calculateCompletedToday = (habitList) => {
+	// habitList.map(habit => {
+	// 	const dayObj = habit.week.find(d => d.day === getdayName());
+		
+	// 	dayObj.hasCompleted ? howManyCompletedToday += 1 : null
+	// });
+
 	return habitList.filter(habit => habit.completedInDays.includes(getdayName())).length;
 };
 
@@ -70,6 +78,7 @@ const getStatsConfig = (habitList) => [
 const StatsSection = () => {
 	const { habitList } = useContext(HabitContext);
 	const statsConfig = getStatsConfig(habitList); // run the functions once per render
+
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-9">

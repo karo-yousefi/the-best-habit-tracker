@@ -5,11 +5,9 @@ import { availableIcons } from "../data/data";
 import { MiscContext } from "../context/MiscContext.jsx";
 
 
-
 const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 	const { miscInfo , setMiscInfo } = useContext(MiscContext);
 
-	
 
 	const getSreakColorForAHabit = () => {
 		const streak = habit.streak;
@@ -63,38 +61,53 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 		return dayName.slice(0, 3).toLowerCase();
 	}
 
+	const checkStreak = () => {
+		return;
+	}
 
-	const handleCompleteHabitToday = (habit) => {
+	const handleCompleteHabitTodayNew = (habit) => {
 		const today = getdayName();
+		const dayObj = habit.week.find(d => d.day === today);
+		let timesValue;
+		let hasCompletedValue;
 
-		if (habit.activeDays.includes(today)) {
-			const newCompletedInDays = [...habit.completedInDays];
-
-			if (!newCompletedInDays.includes(today)) { // Habit is not done, add it to the done list
-				newCompletedInDays.push(today);
-
-				setHabitList(prevList => // Updating the array of habits, changing completedInDays property
-					prevList.map(h =>
-					h.id === habit.id
-						? { ...h, completedInDays: newCompletedInDays, times: h.times+1 }
-						: h
-					)
-				);
-
-			}
-			else {
-				newCompletedInDays.splice(newCompletedInDays.indexOf(today), 1);
-				
-				setHabitList(prevList => // Updating the array of habits, changing completedInDays property
-					prevList.map(h =>
-					h.id === habit.id
-						? { ...h, completedInDays: newCompletedInDays, times: h.times-1 }
-						: h
-					)
-				);
-			}
-			
+		if (!dayObj.hasCompleted) {
+			timesValue = 1;
+			hasCompletedValue = true;
 		}
+
+		else {
+			timesValue = -1;
+			hasCompletedValue = false;
+		}
+
+		setHabitList(prevList =>
+			prevList.map(h =>
+				h.id === habit.id
+					? {
+							...h,
+							times: h.times + timesValue,
+							week: h.week.map(d =>
+								d.day === today
+									? { ...d, hasCompleted: hasCompletedValue }
+									: d
+							),
+						}
+					: h
+  		)
+		);
+	}
+
+
+
+	const isActiveToday = (day) => {
+		const dayObj = habit.week.find(d => d.day === day);
+		return dayObj.isActive;
+	}
+
+	const hasCompletedToday = (day) => {
+		const dayObj = habit.week.find(d => d.day === day);
+		return dayObj.hasCompleted;
 	}
 
 
@@ -117,9 +130,9 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 
 				<div>
 					<div
-						className={`text-white p-[5px] rounded-md  transition-all ${habit.activeDays.includes(getdayName()) ? "opacity-100 hover:opacity-75 cursor-pointer" : "grayscale-100"}`}
+						className={`text-white p-[5px] rounded-md  transition-all ${isActiveToday(getdayName()) ? "opacity-100 hover:opacity-75 cursor-pointer" : "grayscale-100"}`}
 						style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}
-						onClick={habit.activeDays.includes(getdayName()) ?  () => handleCompleteHabitToday(habit) : null}
+						onClick={isActiveToday(getdayName()) ?  () => handleCompleteHabitTodayNew(habit) : null}
 					>
 						<Check />
 					</div>
@@ -150,7 +163,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 								<div
 									key={day}
 									className={`rounded-[8px] w-8 h-8 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none
-										${habit.activeDays.includes(day) ? "opacity-100" : "opacity-0"} ${habit.completedInDays.includes(day) ? "grayscale-0" : "grayscale-100"}`}
+										${isActiveToday(day) ? "opacity-100" : "opacity-0"} ${hasCompletedToday(day) ? "grayscale-0" : "grayscale-100"}`}
 									style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}
 								>
 									{day}
