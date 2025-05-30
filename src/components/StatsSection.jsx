@@ -5,8 +5,6 @@ import { Flame, ShieldCheck, BookCheck, Calendar } from "lucide-react";
 
 // Calculation functions
 
-let howManyCompletedToday = 0
-
 const getdayName = () => {
 	const today = new Date();
 	const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
@@ -14,15 +12,19 @@ const getdayName = () => {
 	return dayName.slice(0, 3).toLowerCase();
 }
 
-
+ 
 const calculateCompletedToday = (habitList) => {
-	// habitList.map(habit => {
-	// 	const dayObj = habit.week.find(d => d.day === getdayName());
-		
-	// 	dayObj.hasCompleted ? howManyCompletedToday += 1 : null
-	// });
+	let hasCompletedToday = 0;
 
-	return habitList.filter(habit => habit.completedInDays.includes(getdayName())).length;
+	if (habitList.length > 0) {
+		habitList.map(habit => {	
+			const dayObj = habit.week.find(d => d.day === getdayName());
+			dayObj.hasCompleted ? hasCompletedToday += 1 : null;
+		});
+		return hasCompletedToday;
+	};
+
+	return 0;
 };
 
 const calculateLongestStreak = (habitList) => {
@@ -48,6 +50,7 @@ const getStatsConfig = (habitList) => [
 		colorOne: "#10b981",
 		colorTwo: "#22d3ee",
 		value: calculateCompletedToday(habitList),
+		hoverTitle: "Completed Today",
 	},
 	{
 		id: 1,
@@ -56,6 +59,7 @@ const getStatsConfig = (habitList) => [
 		colorOne: "#f43f5e",
 		colorTwo: "#f97316",
 		value: calculateLongestStreak(habitList),
+		hoverTitle: "Longest Streak",
 	},
 	{
 		id: 2,
@@ -64,6 +68,7 @@ const getStatsConfig = (habitList) => [
 		colorOne: "#3b82f6",
 		colorTwo: "#6366f1",
 		value: calculateActiveHabits(habitList),
+		hoverTitle: "Active Habits",
 	},
 	{
 		id: 3,
@@ -72,6 +77,7 @@ const getStatsConfig = (habitList) => [
 		colorOne: "#9333ea",
 		colorTwo: "#e11d48",
 		value: calculateDaysLeftInMonth(),
+		hoverTitle: "Days Left In This Month",
 	},
 ];
 
@@ -90,6 +96,7 @@ const StatsSection = () => {
 					icon={stat.icon}
 					title={stat.title}
 					value={stat.value}
+					hoverTitle={stat.hoverTitle}
 				/>
 			))}
 		</div>

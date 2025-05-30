@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { ArrowUpNarrowWide, Check, Flame, Trash2 } from "lucide-react";
+import { Check, Flame, Trash2 } from "lucide-react";
 import { daysOfWeek, flameColors } from "../data/data";
 import { availableIcons } from "../data/data";
 import { MiscContext } from "../context/MiscContext.jsx";
@@ -101,13 +101,17 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 
 
 	const isActiveToday = (day) => {
-		const dayObj = habit.week.find(d => d.day === day);
-		return dayObj.isActive;
+		if (habit.week && habit.week.length > 0) {
+			const dayObj = habit.week.find(d => d.day === day);
+			return dayObj.isActive;
+		}
 	}
 
 	const hasCompletedToday = (day) => {
-		const dayObj = habit.week.find(d => d.day === day);
-		return dayObj.hasCompleted;
+		if (habit.week && habit.week.length > 0) {
+			const dayObj = habit.week.find(d => d.day === day);
+			return dayObj.hasCompleted;
+		}
 	}
 
 
@@ -133,6 +137,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 						className={`text-white p-[5px] rounded-md  transition-all ${isActiveToday(getdayName()) ? "opacity-100 hover:opacity-75 cursor-pointer" : "grayscale-100"}`}
 						style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}
 						onClick={isActiveToday(getdayName()) ?  () => handleCompleteHabitTodayNew(habit) : null}
+						title={isActiveToday(getdayName()) ? "Complete" : "The habit is not active today"}
 					>
 						<Check />
 					</div>
@@ -163,7 +168,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 								<div
 									key={day}
 									className={`rounded-[8px] w-8 h-8 text-xs font-[300] text-white font-poppins flex justify-center items-center select-none
-										${isActiveToday(day) ? "opacity-100" : "opacity-0"} ${hasCompletedToday(day) ? "grayscale-0" : "grayscale-100"}`}
+										${isActiveToday(day) ? "opacity-100" : "opacity-"} ${hasCompletedToday(day) ? "grayscale-0" : "grayscale-100"}`}
 									style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}
 								>
 									{day}
@@ -173,7 +178,10 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 					</div>
 				</div>
 
-				<div className={"group bg-gray-700 flex gap-2 rounded-xl px-2 py-1.5 color items-center cursor-pointer"}>
+				<div
+					className={"group bg-gray-700 flex gap-2 rounded-xl px-2 py-1.5 color items-center cursor-pointer"}
+					title="Your Streak"
+				>
 					<Flame className="group-hover:scale-120 transition-all" style={{color: getSreakColorForAHabit(0)}}/>
 					<p className="text-gray-200 font-poppins font-[400] text-sm group-hover:text-white group-hover:font-[500] transition-all">{habit.streak}</p>
 				</div>
@@ -183,6 +191,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 			<div
 				className="absolute opacity-0 top-8 left-1/2 text-rose-500 hover:text-rose-700 transition-all cursor-pointer group-hover:opacity-100 duration-200"
 				onClick={() => {handleDeleteHabit(habit.id)}}
+				title="Delete Habit"
 			>
 				<Trash2 size={28}/>
 			</div>
