@@ -28,7 +28,7 @@ const calculateCompletedToday = (habitList) => {
 };
 
 const calculateLongestStreak = (habitList) => {
-	return Math.max(...habitList.map(habit => habit.longestStreak || 0), 0);
+	return Math.max(...habitList.map(habit => habit.streak || 0), 0);
 };
 
 const calculateActiveHabits = (habitList) => {
