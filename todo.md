@@ -3,7 +3,7 @@
 + Delete button covers the title
 + Days left getting zero at the end of the month
 + Habits and settings not getting updated after importing, right now I reload the whole page to bypass this issue
-
++ The modals are not great for mobile
 
 ## Features:
 

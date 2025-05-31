@@ -189,11 +189,11 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 
 			{/* delete button, only visible while hovering a habit box */}
 			<div
-				className="absolute opacity-0 top-8 left-1/2 text-rose-500 hover:text-rose-700 transition-all cursor-pointer group-hover:opacity-100 duration-200"
+				className="absolute opacity-0 top-18 left-1/2 text-rose-500 hover:text-rose-700 transition-all cursor-pointer group-hover:opacity-100 duration-200"
 				onClick={() => {handleDeleteHabit(habit.id)}}
 				title="Delete Habit"
 			>
-				<Trash2 size={28}/>
+				<Trash2 size={32}/>
 			</div>
 		</div>
 	)
