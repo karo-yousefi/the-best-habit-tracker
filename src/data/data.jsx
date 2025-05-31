@@ -35,7 +35,7 @@ const flameColors = [
 
 
 const availableIcons = [
-	{ id: 0, icon: <Code size={20} />, label: "Code" },
+	{ id: 0, icon: <Code />, label: "Code" },
   { id: 1, icon: <Book />, label: "Read" },
   { id: 2, icon: <Pen />, label: "Write" },
   { id: 3, icon: <Laptop />, label: "Work" },

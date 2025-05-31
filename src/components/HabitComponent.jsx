@@ -139,8 +139,8 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 				<div className="flex justify-center items-center gap-3">
 					<div className="text-white w-11 h-11 rounded-md flex justify-center items-center" style={{backgroundImage: `linear-gradient(to right, ${habit.colorOne}, ${habit.colorTwo})`}}>
 						{
-							habit.icon ?
-								availableIcons[habit.icon].icon :
+							habit.icon >= 0 ?
+								availableIcons[habit.icon].icon :									
 								null
 						}
 					</div>
