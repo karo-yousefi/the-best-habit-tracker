@@ -7,6 +7,15 @@ const HeaderSection = ({ addModalOpen, setAddModalOpen }) => {
 
 	const [infoModalOpen, setInfoModalOpen] = useState(false);
 	const [settingsModalOpen, setSettingsModalOpen] = useState(false);
+	const [date, setDate] = useState(null);
+
+	const handleDate = () => {
+		const todaydate = new Date().toDateString().split(" ");
+		setDate(`${todaydate[1]}  ${todaydate[2]}`)
+	}	
+	useState(() => {
+		handleDate();
+	}, [])
 
 	return (
 		<div>
@@ -21,7 +30,21 @@ const HeaderSection = ({ addModalOpen, setAddModalOpen }) => {
 					Build better habits, one day at a time
 				</p>
 			</div>
+			<div>
+				<p className="font-poppins text-xl text-white font-[500] hidden md:block">
+					{
+						date
+					}
+				</p>
+			</div>
 			<div className="flex flex-col items-center gap-3 md:flex-row-reverse">
+				<div>
+					<p className="font-poppins text-xl text-white font-[500] block  md:hidden">
+						{
+							date
+						}
+					</p>
+				</div>
 				<button
 					className="h-10 w-25 md:w-36 text-[13px] md:text-[16px] bg-gradient-to-br from-violet-600 to-sky-600 rounded-xl text-white font-poppins cursor-pointer select-none transition-all hover:translate-y-[3px] hover:opacity-85"
 					onClick={() => setAddModalOpen(!addModalOpen)}
@@ -34,6 +57,7 @@ const HeaderSection = ({ addModalOpen, setAddModalOpen }) => {
 				>
 					Import / Export
 				</button>
+				
 			</div>
 		</div>
 
