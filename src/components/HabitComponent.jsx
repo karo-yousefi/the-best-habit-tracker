@@ -61,8 +61,23 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 		return dayName.slice(0, 3).toLowerCase();
 	}
 
+	// week object in each object has order like this by default: "sun", "mon", ..., "sat"
+	// And since this won't change based on the first day of the week of the user, I get the index of 
+	// today in a list that "sun" is the first day, hence using daysOfWeek["sun"].tdday to get the
+	// index of today, a list that has the same order as week. Then I compare these two indices
+	// to separate the past days and the future days, since these days do not have a date
+
 	const checkStreak = () => {
-		return;
+		const today = getdayName();
+		const todayIndex = daysOfWeek["sun"].indexOf(today);  
+
+		const activeDaysBeforeToday = habit.week.filter(item => habit.week.indexOf(item) <= todayIndex);
+		
+		activeDaysBeforeToday.map(day => { // Every active day before has completed => do nothing / one day skipped => reset the streak
+			day.hasCompleted ? 
+				null :
+				habit.streak = 0
+		})
 	}
 
 	const handleCompleteHabitTodayNew = (habit) => {
@@ -87,6 +102,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 					? {
 							...h,
 							times: h.times + timesValue,
+							streak: h.streak + timesValue,
 							week: h.week.map(d =>
 								d.day === today
 									? { ...d, hasCompleted: hasCompletedValue }
@@ -97,7 +113,6 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
   		)
 		);
 	}
-
 
 
 	const isActiveToday = (day) => {
@@ -114,7 +129,9 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 		}
 	}
 
-
+	useEffect(() => {
+		checkStreak();
+	}, [])
 
 	return (
 		<div className="group relative bg-slate-900 border-[2px] py-6 px-6 border-slate-800 rounded-xl hover:border-slate-700 transition-all flex flex-col justify-start gap-8">
@@ -179,11 +196,11 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 				</div>
 
 				<div
-					className={"group bg-gray-700 flex gap-2 rounded-xl px-2 py-1.5 color items-center cursor-pointer"}
+					className={"group relative bg-gray-700 w-15 h-9 rounded-xl px-2 py-1.5 color cursor-pointer"}
 					title="Your Streak"
 				>
-					<Flame className="group-hover:scale-120 transition-all" style={{color: getSreakColorForAHabit(0)}}/>
-					<p className="text-gray-200 font-poppins font-[400] text-sm group-hover:text-white group-hover:font-[500] transition-all">{habit.streak}</p>
+					<Flame className="group-hover:scale-120 transition-all absolute left-1 top-1/2 -translate-y-1/2" style={{color: getSreakColorForAHabit(0)}}/>
+					<p className="text-white font-poppins font-[500] absolute right-2 top-1/2 -translate-y-1/2">{habit.streak}</p>
 				</div>
 			</div>
 
