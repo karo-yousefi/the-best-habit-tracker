@@ -3,6 +3,7 @@ import { availableIcons } from "../data/data";
 import { HabitContext } from "../context/HabitContext.jsx";
 import { MiscContext } from "../context/MiscContext.jsx";
 import { daysOfWeek } from "../data/data.jsx";
+import { X } from "lucide-react";
 
 
 const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, loadFromLocalStorage }) => {
@@ -113,15 +114,20 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 
 			{/* main modal container */}
 			<div
-				className={`w-4xl bg-slate-800 rounded-xl px-8 py-6 transition-all ease-out duration-200 ${
+				className={`w-4xl bg-slate-800 rounded-xl px-8 py-6 transition-all ease-out duration-200 mt-80 ${
 					addModalOpen ? "scale-100" : "scale-40"
 				} flex flex-col justify-start items-center gap-8`}
 			>
 				{/* modal header */}
 				<div className="flex flex-col items-start w-full gap-3">
-					<p className="font-poppins text-md md:text-xl font-[500] text-white select-none">
-						Add New Habit
-					</p>
+					<div className="flex justify-between w-full">
+						<p className="font-poppins text-md md:text-xl font-[500] text-white select-none">
+							Add New Habit
+						</p>
+						
+						{/* close button for ease of use on mobile */}
+						<X className="text-rose-500 mx-6 cursor-pointer block md:hidden" size={36} onClick={() => setAddModalOpen(false)}/>
+					</div>
 					<p className="font-poppins text-sm font-[400] text-gray-400 select-none">
 						Create a new habit to track your progress
 					</p>
