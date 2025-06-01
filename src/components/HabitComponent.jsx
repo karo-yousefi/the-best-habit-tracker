@@ -5,7 +5,7 @@ import { availableIcons } from "../data/data";
 import { MiscContext } from "../context/MiscContext.jsx";
 
 
-const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
+const HabitComponent = ({ habit, setHabitList, handleDeleteHabit, laodedStreak }) => {
 	const { miscInfo , setMiscInfo } = useContext(MiscContext);
 
 
@@ -131,6 +131,7 @@ const HabitComponent = ({ habit, setHabitList, handleDeleteHabit}) => {
 
 	useEffect(() => {
 		checkStreak();
+		habit.streak = laodedStreak;
 	}, [])
 
 	return (

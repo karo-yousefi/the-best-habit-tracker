@@ -20,6 +20,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 	const [colorTwo, setColorTwo] = useState("#fa147f");
 	const [selectedIcon, setSelectedIcon] = useState(null);
 	const [newHabitId, setNewHabitId] = useState(0);
+	const [loadedStreak, setLoadedStreak] = useState(0);
 
 
 	const [weekState, setWeekState] = useState(daysOfWeek[miscInfo.firstDayOfWeek].map(day => ({
@@ -96,7 +97,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 	useEffect(() => {
 		if (habitList && habitList.length > 0) {
 			setNewHabitId(habitList.at(-1).id + 1);
-		}
+		};
 	}, [])
 
 
@@ -114,7 +115,7 @@ const AddHabitModal = ({ addModalOpen, setAddModalOpen, saveToLocalStorage, load
 
 			{/* main modal container */}
 			<div
-				className={`w-4xl bg-slate-800 rounded-xl px-8 py-6 transition-all ease-out duration-200 mt-80 ${
+				className={`w-4xl bg-slate-800 rounded-xl px-8 py-6 transition-all ease-out duration-200 max-md:mt-80 ${
 					addModalOpen ? "scale-100" : "scale-40"
 				} flex flex-col justify-start items-center gap-8`}
 			>

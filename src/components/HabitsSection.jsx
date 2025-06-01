@@ -28,7 +28,7 @@ const HabitsSection = ({ saveToLocalStorage, loadFromLocalStorage }) => {
 			{
 				habitList && habitList.map(habit => {
 					return (
-						<HabitComponent key={habit.id} habit={habit} setHabitList={setHabitList} handleDeleteHabit={handleDeleteHabit}/>
+						<HabitComponent key={habit.id} habit={habit} setHabitList={setHabitList} handleDeleteHabit={handleDeleteHabit} laodedStreak={habit.streak} />
 					)
 				}
 
