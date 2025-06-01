@@ -65,9 +65,52 @@ const defaultSettings = {
   firstDayOfWeek: "sun",
 }
 
+const themes = [
+  {
+    id: 0,
+    title: "Dark Theme",
+    name: "dark",
+    showcaseColor: "bg-slate-600",
+    colors: {
+      color0: "",
+      color1: "",
+      color2: "",
+      color3: "",
+      color4: "",
+    },
+  },
+  {
+    id: 1,
+    title: "Light Theme",
+    name: "light",
+    showcaseColor: "bg-orange-100",
+    colors: {
+      color0: "",
+      color1: "",
+      color2: "",
+      color3: "",
+      color4: "",
+    },
+  },
+  {
+    id: 2,
+    title: "AMOLED Theme",
+    name: "amoled",
+    showcaseColor: "bg-black",
+    colors: {
+      color0: "",
+      color1: "",
+      color2: "",
+      color3: "",
+      color4: "",
+    },
+  },
+]
+
 export {
 	daysOfWeek,
 	flameColors,
 	availableIcons,
   defaultSettings,
+  themes,
 };
